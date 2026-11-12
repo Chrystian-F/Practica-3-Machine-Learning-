@@ -1,0 +1,3 @@
+dataset,parametros_defecto,mejores_parametros,accuracy_cv_defecto,accuracy_cv_mejor,accuracy_prueba_defecto,accuracy_prueba_mejor,diferencia_prueba
+Sintético,"k=5, euclidiana, sin ponderar","k=11, euclidiana, sin ponderar",0.6904761904761905,0.7095238095238094,0.6222222222222222,0.7055555555555556,0.08333333333333337
+Wine,"k=5, euclidiana, sin ponderar","k=5, manhattan, sin ponderar",0.9433333333333334,0.9836666666666666,0.9444444444444444,0.9814814814814815,0.03703703703703709
