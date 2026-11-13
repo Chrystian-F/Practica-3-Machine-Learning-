@@ -1,0 +1,698 @@
+{
+  "Sintético | Distancia Mínima | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        33,
+        15,
+        12
+      ],
+      [
+        25,
+        29,
+        8
+      ],
+      [
+        12,
+        6,
+        40
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.55,
+      0.4677,
+      0.6897
+    ],
+    "especificidad_por_clase": [
+      0.6917,
+      0.822,
+      0.8361
+    ]
+  },
+  "Sintético | Distancia Mínima | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        116,
+        61,
+        23
+      ],
+      [
+        80,
+        100,
+        25
+      ],
+      [
+        46,
+        14,
+        135
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.58,
+      0.4878,
+      0.6923
+    ],
+    "especificidad_por_clase": [
+      0.685,
+      0.8101,
+      0.8815
+    ]
+  },
+  "Sintético | 1-NN | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        37,
+        14,
+        9
+      ],
+      [
+        14,
+        35,
+        13
+      ],
+      [
+        9,
+        8,
+        41
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.6167,
+      0.5645,
+      0.7069
+    ],
+    "especificidad_por_clase": [
+      0.8083,
+      0.8136,
+      0.8197
+    ]
+  },
+  "Sintético | 1-NN | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        132,
+        43,
+        25
+      ],
+      [
+        46,
+        132,
+        27
+      ],
+      [
+        32,
+        34,
+        129
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.66,
+      0.6439,
+      0.6615
+    ],
+    "especificidad_por_clase": [
+      0.805,
+      0.8051,
+      0.8716
+    ]
+  },
+  "Sintético | K-NN | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        36,
+        11,
+        13
+      ],
+      [
+        13,
+        34,
+        15
+      ],
+      [
+        10,
+        6,
+        42
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.6,
+      0.5484,
+      0.7241
+    ],
+    "especificidad_por_clase": [
+      0.8083,
+      0.8559,
+      0.7705
+    ]
+  },
+  "Sintético | K-NN | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        145,
+        30,
+        25
+      ],
+      [
+        43,
+        133,
+        29
+      ],
+      [
+        33,
+        23,
+        139
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.725,
+      0.6488,
+      0.7128
+    ],
+    "especificidad_por_clase": [
+      0.81,
+      0.8658,
+      0.8667
+    ]
+  },
+  "Sintético | Naïve Bayes | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        41,
+        8,
+        11
+      ],
+      [
+        31,
+        24,
+        7
+      ],
+      [
+        13,
+        5,
+        40
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.6833,
+      0.3871,
+      0.6897
+    ],
+    "especificidad_por_clase": [
+      0.6333,
+      0.8898,
+      0.8525
+    ]
+  },
+  "Sintético | Naïve Bayes | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        143,
+        24,
+        33
+      ],
+      [
+        95,
+        84,
+        26
+      ],
+      [
+        46,
+        11,
+        138
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.715,
+      0.4098,
+      0.7077
+    ],
+    "especificidad_por_clase": [
+      0.6475,
+      0.9114,
+      0.8543
+    ]
+  },
+  "Sintético | SVM | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        43,
+        8,
+        9
+      ],
+      [
+        18,
+        35,
+        9
+      ],
+      [
+        9,
+        5,
+        44
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.7167,
+      0.5645,
+      0.7586
+    ],
+    "especificidad_por_clase": [
+      0.775,
+      0.8898,
+      0.8525
+    ]
+  },
+  "Sintético | SVM | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        156,
+        20,
+        24
+      ],
+      [
+        54,
+        124,
+        27
+      ],
+      [
+        31,
+        22,
+        142
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.78,
+      0.6049,
+      0.7282
+    ],
+    "especificidad_por_clase": [
+      0.7875,
+      0.8937,
+      0.8741
+    ]
+  },
+  "Sintético | MLP | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        44,
+        7,
+        9
+      ],
+      [
+        17,
+        38,
+        7
+      ],
+      [
+        9,
+        8,
+        41
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.7333,
+      0.6129,
+      0.7069
+    ],
+    "especificidad_por_clase": [
+      0.7833,
+      0.8729,
+      0.8689
+    ]
+  },
+  "Sintético | MLP | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        145,
+        31,
+        24
+      ],
+      [
+        40,
+        136,
+        29
+      ],
+      [
+        27,
+        26,
+        142
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.725,
+      0.6634,
+      0.7282
+    ],
+    "especificidad_por_clase": [
+      0.8325,
+      0.8557,
+      0.8691
+    ]
+  },
+  "Wine | Distancia Mínima | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        18,
+        0,
+        0
+      ],
+      [
+        0,
+        20,
+        1
+      ],
+      [
+        0,
+        0,
+        15
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      0.9524,
+      1.0
+    ],
+    "especificidad_por_clase": [
+      1.0,
+      1.0,
+      0.9744
+    ]
+  },
+  "Wine | Distancia Mínima | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        59,
+        0,
+        0
+      ],
+      [
+        2,
+        67,
+        2
+      ],
+      [
+        0,
+        0,
+        48
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      0.9437,
+      1.0
+    ],
+    "especificidad_por_clase": [
+      0.9832,
+      1.0,
+      0.9846
+    ]
+  },
+  "Wine | 1-NN | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        18,
+        0,
+        0
+      ],
+      [
+        1,
+        19,
+        1
+      ],
+      [
+        0,
+        0,
+        15
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      0.9048,
+      1.0
+    ],
+    "especificidad_por_clase": [
+      0.9722,
+      1.0,
+      0.9744
+    ]
+  },
+  "Wine | 1-NN | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        59,
+        0,
+        0
+      ],
+      [
+        4,
+        64,
+        3
+      ],
+      [
+        0,
+        1,
+        47
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      0.9014,
+      0.9792
+    ],
+    "especificidad_por_clase": [
+      0.9664,
+      0.9907,
+      0.9769
+    ]
+  },
+  "Wine | K-NN | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        18,
+        0,
+        0
+      ],
+      [
+        0,
+        18,
+        3
+      ],
+      [
+        0,
+        0,
+        15
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      0.8571,
+      1.0
+    ],
+    "especificidad_por_clase": [
+      1.0,
+      1.0,
+      0.9231
+    ]
+  },
+  "Wine | K-NN | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        59,
+        0,
+        0
+      ],
+      [
+        3,
+        66,
+        2
+      ],
+      [
+        0,
+        0,
+        48
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      0.9296,
+      1.0
+    ],
+    "especificidad_por_clase": [
+      0.9748,
+      1.0,
+      0.9846
+    ]
+  },
+  "Wine | Naïve Bayes | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        18,
+        0,
+        0
+      ],
+      [
+        0,
+        21,
+        0
+      ],
+      [
+        0,
+        0,
+        15
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "especificidad_por_clase": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "Wine | Naïve Bayes | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        57,
+        2,
+        0
+      ],
+      [
+        0,
+        69,
+        2
+      ],
+      [
+        0,
+        0,
+        48
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.9661,
+      0.9718,
+      1.0
+    ],
+    "especificidad_por_clase": [
+      1.0,
+      0.9813,
+      0.9846
+    ]
+  },
+  "Wine | SVM | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        18,
+        0,
+        0
+      ],
+      [
+        0,
+        21,
+        0
+      ],
+      [
+        0,
+        1,
+        14
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      1.0,
+      0.9333
+    ],
+    "especificidad_por_clase": [
+      1.0,
+      0.9697,
+      1.0
+    ]
+  },
+  "Wine | SVM | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        58,
+        1,
+        0
+      ],
+      [
+        0,
+        70,
+        1
+      ],
+      [
+        0,
+        2,
+        46
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      0.9831,
+      0.9859,
+      0.9583
+    ],
+    "especificidad_por_clase": [
+      1.0,
+      0.972,
+      0.9923
+    ]
+  },
+  "Wine | MLP | Hold-Out 70/30": {
+    "matriz_confusion": [
+      [
+        18,
+        0,
+        0
+      ],
+      [
+        0,
+        21,
+        0
+      ],
+      [
+        0,
+        0,
+        15
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "especificidad_por_clase": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "Wine | MLP | K-Fold (k=10)": {
+    "matriz_confusion": [
+      [
+        59,
+        0,
+        0
+      ],
+      [
+        0,
+        68,
+        3
+      ],
+      [
+        0,
+        1,
+        47
+      ]
+    ],
+    "sensibilidad_por_clase": [
+      1.0,
+      0.9577,
+      0.9792
+    ],
+    "especificidad_por_clase": [
+      1.0,
+      0.9907,
+      0.9769
+    ]
+  }
+}
