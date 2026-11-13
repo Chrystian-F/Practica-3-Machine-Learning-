@@ -375,6 +375,135 @@ def ajustar_knn(carpeta_resultados="resultados", cv=5):
     return tabla
 
 
+# ---------------------------------------------------------------------------
+# Rol 6 - MLP: ajuste, tabla de resultados y curva de pérdida
+# ---------------------------------------------------------------------------
+REJILLA_MLP = {
+    "modelo__hidden_layer_sizes": [(50,), (100,), (50, 50), (100, 50)],
+    "modelo__activation": ["relu", "tanh"],
+    "modelo__learning_rate_init": [0.001, 0.01],
+    "modelo__alpha": [0.0001, 0.001],
+}
+
+
+def ajustar_mlp(carpeta_resultados="resultados", cv=5, n_jobs=-1):
+    """Ajusta MLP en ambos datasets y grafica loss_curve_ del mejor modelo.
+
+    La búsqueda usa solo el 70 % de entrenamiento. El 30 % de prueba se
+    reserva para comparar la configuración por defecto contra la ajustada.
+    """
+    from pathlib import Path
+
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import pandas as pd
+
+    from modelos import crear_mlp
+
+    carpeta = Path(carpeta_resultados)
+    graficas = carpeta / "graficas"
+    graficas.mkdir(parents=True, exist_ok=True)
+
+    filas, rejillas, curvas = [], [], []
+    fig, ejes = plt.subplots(1, len(DATASETS), figsize=(12, 4.5), squeeze=False)
+
+    for indice, (nombre_ds, cargar) in enumerate(DATASETS.items()):
+        X, y = cargar()
+        X_ent, X_prueba, y_ent, y_prueba = train_test_split(
+            X, y, test_size=0.30, stratify=y, random_state=SEMILLA)
+        clases = sorted(set(y))
+        modelo_default = crear_mlp()
+
+        busqueda = GridSearchCV(
+            crear_pipeline(modelo_default), REJILLA_MLP, cv=cv,
+            scoring="accuracy", n_jobs=n_jobs, refit=True,
+            return_train_score=True)
+        busqueda.fit(X_ent, y_ent)
+
+        # Evaluación final en el conjunto de prueba, sin usarlo en la búsqueda.
+        mejor = busqueda.best_estimator_.named_steps["modelo"]
+        r_default = entrenar_y_probar(
+            modelo_default, X_ent, y_ent, X_prueba, y_prueba, clases)
+        r_mejor = entrenar_y_probar(mejor, X_ent, y_ent, X_prueba, y_prueba, clases)
+
+        res = pd.DataFrame(busqueda.cv_results_)
+        es_default = (
+            (res["param_modelo__hidden_layer_sizes"].astype(str) == "(100,)")
+            & (res["param_modelo__activation"] == "relu")
+            & (res["param_modelo__learning_rate_init"].astype(float) == 0.001)
+            & (res["param_modelo__alpha"].astype(float) == 0.0001)
+        )
+        accuracy_cv_default = float(res.loc[es_default, "mean_test_score"].iloc[0])
+        parametros_default = (
+            "hidden_layer_sizes=(100,), activation=relu, "
+            "learning_rate_init=0.001, alpha=0.0001")
+        fila = {
+            "dataset": nombre_ds,
+            "parametros_defecto": parametros_default,
+            "mejores_parametros": str(busqueda.best_params_),
+            "accuracy_cv_defecto": accuracy_cv_default,
+            "accuracy_cv_mejor": float(busqueda.best_score_),
+            "diferencia_accuracy_cv": float(busqueda.best_score_ - accuracy_cv_default),
+            "accuracy_prueba_defecto": float(r_default["accuracy"]),
+            "accuracy_prueba_mejor": float(r_mejor["accuracy"]),
+            "diferencia_accuracy_prueba": float(r_mejor["accuracy"] - r_default["accuracy"]),
+            "iteraciones_mejor_modelo": int(mejor.n_iter_),
+            "perdida_final": float(mejor.loss_),
+        }
+        filas.append(fila)
+
+        tabla_cv = res[[
+            "param_modelo__hidden_layer_sizes", "param_modelo__activation",
+            "param_modelo__learning_rate_init", "param_modelo__alpha",
+            "mean_test_score", "std_test_score", "mean_train_score",
+            "rank_test_score",
+        ]].copy()
+        tabla_cv.insert(0, "dataset", nombre_ds)
+        tabla_cv = tabla_cv.rename(columns={
+            "param_modelo__hidden_layer_sizes": "hidden_layer_sizes",
+            "param_modelo__activation": "activation",
+            "param_modelo__learning_rate_init": "learning_rate_init",
+            "param_modelo__alpha": "alpha",
+            "mean_test_score": "accuracy_cv_promedio",
+            "std_test_score": "accuracy_cv_desviacion",
+            "mean_train_score": "accuracy_entrenamiento_cv",
+            "rank_test_score": "rango",
+        })
+        rejillas.append(tabla_cv)
+
+        perdida = np.asarray(mejor.loss_curve_, dtype=float)
+        curvas.extend({"dataset": nombre_ds, "iteracion": i + 1, "perdida": valor}
+                      for i, valor in enumerate(perdida))
+        eje = ejes[0, indice]
+        eje.plot(np.arange(1, len(perdida) + 1), perdida, color="tab:blue")
+        eje.set_title(f"{nombre_ds}: mejor configuración")
+        eje.set_xlabel("Iteración")
+        eje.set_ylabel("Pérdida (loss)")
+        eje.grid(alpha=0.3)
+
+        print(
+            f"MLP | {nombre_ds}: CV defecto={accuracy_cv_default:.4f}, "
+            f"CV mejor={busqueda.best_score_:.4f} | "
+            f"prueba defecto={r_default['accuracy']:.4f}, "
+            f"prueba mejor={r_mejor['accuracy']:.4f} "
+            f"({fila['diferencia_accuracy_prueba']:+.4f}) | "
+            f"parámetros={busqueda.best_params_}"
+        )
+
+    pd.DataFrame(filas).to_csv(
+        carpeta / "ajuste_mlp.csv", index=False, encoding="utf-8-sig")
+    pd.concat(rejillas, ignore_index=True).to_csv(
+        carpeta / "ajuste_mlp_rejilla.csv", index=False, encoding="utf-8-sig")
+    pd.DataFrame(curvas).to_csv(
+        carpeta / "ajuste_mlp_curvas_perdida.csv", index=False, encoding="utf-8-sig")
+    fig.suptitle("MLP: curva de pérdida del mejor modelo por dataset")
+    fig.tight_layout()
+    fig.savefig(graficas / "mlp_curva_perdida.png", dpi=160, bbox_inches="tight")
+    plt.close(fig)
+    return pd.DataFrame(filas)
+
+
 if __name__ == "__main__":
     # Rol 3 — K-NN
     ajustar_knn()
@@ -382,7 +511,5 @@ if __name__ == "__main__":
     # Rol 5 — SVM
     ajustar_svm()
 
-    # TODO Rol 6 — MLP
-    #   from modelos import crear_mlp
-    #   ajustar("MLP", crear_mlp(), {...})
-    pass
+    # Rol 6 - MLP
+    ajustar_mlp()
