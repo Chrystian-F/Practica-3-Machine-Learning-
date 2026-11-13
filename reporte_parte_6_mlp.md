@@ -20,6 +20,19 @@ Sea `n` el número de muestras, `W` el número total de pesos y sesgos, y `E` la
 
 Estas expresiones son aproximaciones: el tiempo también depende de la arquitectura, la activación, el criterio de convergencia, el hardware y el tamaño del lote. Al mantener una arquitectura fija y aumentar `n`, se espera que el entrenamiento crezca aproximadamente con `n`; la predicción de un lote fijo depende principalmente de `W`, no del número de muestras usado para entrenar.
 
+## Resultados del ajuste MLP
+
+La búsqueda probó 32 combinaciones por dataset, con cinco folds y usando solo el conjunto de entrenamiento. La tabla muestra los promedios de validación cruzada y la evaluación final en el 30 % reservado para prueba.
+
+| Dataset | Mejores parámetros | Accuracy CV defecto | Accuracy CV mejor | Accuracy prueba defecto | Accuracy prueba mejor | Diferencia en prueba |
+|---|---|---:|---:|---:|---:|---:|
+| Sintético | `hidden_layer_sizes=(50,)`, ReLU, `learning_rate_init=0.001`, `alpha=0.001` | 0.7024 | 0.7095 | 0.6833 | 0.6889 | +0.0056 |
+| Wine | `hidden_layer_sizes=(50, 50)`, ReLU, `learning_rate_init=0.01`, `alpha=0.0001` | 0.9840 | 0.9920 | 1.0000 | 0.9815 | -0.0185 |
+
+En el dataset sintético, el mejor ajuste sube la accuracy de prueba en 0.0056 (una muestra adicional de las 180 de prueba). En Wine, la búsqueda mejora el promedio de validación cruzada, pero en la partición de prueba pierde una muestra: el modelo por defecto acertó las 54 y el ajustado acertó 53. Por eso, la mejora en CV no garantiza una mejora en cada partición de prueba.
+
+La curva de pérdida del mejor modelo desciende de 1.2043 a 0.5475 en 559 iteraciones para el dataset sintético, y de 1.2783 a 0.0000816 en 32 iteraciones para Wine. Los valores por iteración están en `resultados/ajuste_mlp_curvas_perdida.csv`; las configuraciones probadas están en `resultados/ajuste_mlp_rejilla.csv`.
+
 ## Comparación de tiempos
 
 `escalabilidad.py` crea datasets sintéticos con 200, 400, 800, 1600 y 3200 observaciones. Mide por separado el entrenamiento y la predicción, promedia tres corridas por tamaño y mantiene fijo el lote de predicción en 100 observaciones. Los tiempos del MLP y de los otros clasificadores se guardan en `resultados/escalabilidad_tiempos.csv`; la gráfica logarítmica se guarda en `resultados/graficas/escalabilidad_tiempos.png`.
@@ -28,7 +41,11 @@ La comparación empírica debe interpretarse como una comprobación de tendencia
 
 ## Estado de resultados
 
-Los archivos con valores numéricos se generan al ejecutar los scripts en un entorno que tenga instaladas las dependencias de `requirements.txt`. En la copia revisada, `DistanciaMinima` todavía lanza `NotImplementedError`; por eso la tabla de escalabilidad lo registra como pendiente y mide el resto de modelos. Cuando el rol 2 integre esa clase, se debe volver a ejecutar `escalabilidad.py` para completar la comparación de los seis clasificadores.
+El ajuste MLP ya se ejecutó y los CSV y PNG descritos arriba están guardados en `resultados/`. La escalabilidad contiene 30 filas: cinco tamaños para cada uno de los seis clasificadores. Se midieron cinco; `DistanciaMinima` queda con estado `pendiente` porque su `fit` todavía lanza `NotImplementedError`. Cuando el rol 2 integre esa clase, se debe volver a ejecutar `escalabilidad.py` para completar sus tiempos.
+
+La gráfica usa escala logarítmica. Para el MLP, el entrenamiento tarda 1.1412 s con 200 muestras y 6.5608 s con 3200; la predicción de un lote fijo de 100 muestras se mantiene entre 0.0009 y 0.0013 s. El entrenamiento crece con `n`, aunque no de forma perfectamente lineal: el número de iteraciones hasta converger cambia entre tamaños. La predicción se mantiene estable, como anticipa `O(W)` por muestra cuando la arquitectura no cambia.
+
+La medición incluye el `StandardScaler` del pipeline. Por eso el entrenamiento medido de K-NN también contiene el costo de escalar los datos (`O(n·d)`), aunque el `fit` del clasificador K-NN por sí mismo solo memoriza las observaciones. En la gráfica, K-NN y 1-NN muestran el crecimiento principalmente en la predicción; SVM aumenta más en entrenamiento; Naïve Bayes conserva tiempos bajos. Las cifras exactas de los cinco modelos medidos están en `resultados/escalabilidad_tiempos.csv`.
 
 ## Ejecución
 
