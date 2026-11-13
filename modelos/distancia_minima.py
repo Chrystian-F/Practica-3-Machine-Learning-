@@ -1,3 +1,4 @@
+
 """
 modelos/distancia_minima.py
 ---------------------------
@@ -6,12 +7,16 @@ RESPONSABLE: Rol 2.
 Clasificador de Distancia Mínima (implementación DESDE CERO, solo NumPy).
 Prohibido usar NearestCentroid u otros clasificadores de scikit-learn.
 
-Idea: en fit se calcula el centroide (promedio) de cada clase; en predict
-cada punto recibe la clase del centroide más cercano (distancia euclidiana).
+Idea:
+En fit se calcula el centroide (promedio) de cada clase.
+En predict cada punto recibe la clase del centroide más cercano
+mediante distancia euclidiana.
 
-Se hereda de BaseEstimator y ClassifierMixin para que funcione dentro de
-Pipeline, cross_val_score y GridSearchCV igual que un modelo de scikit-learn.
-NO escalen los datos aquí: el escalado ya lo hace el Pipeline de evaluacion.py.
+Se hereda de BaseEstimator y ClassifierMixin para que funcione
+dentro de Pipeline, cross_val_score y GridSearchCV.
+
+NO escalar los datos aquí: el escalado ya lo realiza
+el Pipeline de evaluacion.py.
 """
 
 import numpy as np
@@ -21,26 +26,66 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 class DistanciaMinima(BaseEstimator, ClassifierMixin):
 
     def __init__(self):
-        # Si agregan parámetros (p. ej. metrica="euclidiana"), deben guardarse
-        # aquí con el MISMO nombre: self.metrica = metrica. Nada más en __init__.
         pass
 
     def fit(self, X, y):
         """
-        TODO (Rol 2):
-          1. self.classes_ = np.unique(y)
-          2. self.centroides_ = matriz (n_clases, n_rasgos) con el promedio
-             de los puntos de cada clase.
-          3. return self
+        Entrena el clasificador calculando el centroide de cada clase.
         """
-        raise NotImplementedError("DistanciaMinima.fit aún no está implementado (Rol 2)")
+
+        X = np.asarray(X)
+        y = np.asarray(y)
+
+        # Verificar dimensiones
+        if X.ndim != 2:
+            raise ValueError("X debe ser una matriz bidimensional.")
+
+        if y.ndim != 1:
+            raise ValueError("y debe ser un vector unidimensional.")
+
+        if len(X) != len(y):
+            raise ValueError("X e y deben tener el mismo número de muestras.")
+
+        if len(X) == 0:
+            raise ValueError("No se puede entrenar con un conjunto vacío.")
+
+        # 1. Obtener las clases existentes
+        self.classes_ = np.unique(y)
+
+        # 2. Calcular el centroide de cada clase
+        self.centroides_ = np.array([
+            X[y == clase].mean(axis=0)
+            for clase in self.classes_
+        ])
+
+        # 3. Devolver el clasificador entrenado
+        return self
 
     def predict(self, X):
         """
-        TODO (Rol 2):
-          1. Calcular la distancia de cada punto de X a cada centroide,
-             vectorizado (sin ciclo por punto). Resultado: (n_puntos, n_clases).
-          2. Para cada punto, índice del centroide más cercano (np.argmin).
-          3. return self.classes_[indices]
+        Predice la clase del centroide más cercano.
         """
-        raise NotImplementedError("DistanciaMinima.predict aún no está implementado (Rol 2)")
+
+        # Comprobar que el modelo esté entrenado
+        if not hasattr(self, "centroides_"):
+            raise ValueError("El clasificador debe entrenarse antes de predecir.")
+
+        X = np.asarray(X)
+
+        if X.ndim != 2:
+            raise ValueError("X debe ser una matriz bidimensional.")
+
+        if X.shape[1] != self.centroides_.shape[1]:
+            raise ValueError("X tiene un número de características diferente al entrenamiento.")
+
+        # 1. Calcular las distancias euclidianas de todos
+        # los puntos a todos los centroides.
+        diferencias = X[:, np.newaxis, :] - self.centroides_[np.newaxis, :, :]
+
+        distancias = np.sqrt(np.sum(diferencias ** 2, axis=2))
+
+        # 2. Obtener el índice del centroide más cercano
+        indices = np.argmin(distancias, axis=1)
+
+        # 3. Devolver las clases correspondientes
+        return self.classes_[indices]
