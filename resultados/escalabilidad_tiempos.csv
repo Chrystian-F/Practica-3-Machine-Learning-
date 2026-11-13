@@ -1,0 +1,31 @@
+﻿modelo,n,d,repeticiones,muestras_lote_prediccion,tiempo_entrenamiento_promedio_s,tiempo_entrenamiento_desviacion_s,tiempo_prediccion_promedio_s,tiempo_prediccion_desviacion_s,entrenamiento_big_o,prediccion_big_o_por_muestra,memoria_teorica,interpretacion,estado,detalle
+Distancia Mínima,200,6,3,100,,,,,O(n·d),O(c·d),O(c·d),Los centroides resumen cada clase; predecir no recorre n.,pendiente,DistanciaMinima.fit aún no está implementado (Rol 2)
+1-NN,200,6,3,100,0.0029771666352947554,0.0006845821197059629,0.0038794666761532426,0.0018961946899550505,O(1) más almacenar O(n·d),O(n·d),O(n·d),Memoriza todos los ejemplos y calcula distancias al predecir.,medido,
+K-NN,200,6,3,100,0.003364433340417842,0.0005497168506548176,0.0031367666476095715,0.0006001186771184574,O(1) más almacenar O(n·d),O(n·d),O(n·d),Igual que 1-NN en costo asintótico; cambia k y la votación.,medido,
+Naïve Bayes,200,6,3,100,0.0061304999981075525,0.0007718436469290429,0.0015273000268886487,7.648743773666936e-05,O(n·d),O(c·d),O(c·d),Resume medias y varianzas por clase y rasgo.,medido,
+SVM,200,6,3,100,0.012286466623966893,0.0011392878026508578,0.004953099996782839,0.0006304819796044065,"O(n²·d) a O(n³), según solver y datos",O(s·d),O(s·d),s es el número de vectores de soporte.,medido,
+MLP,200,6,3,100,1.1411874333086114,0.15925993640762803,0.0013403333335494,0.000645194743442174,O(épocas·n·W),O(W),O(W),W es el total de pesos; el costo depende de las épocas y la arquitectura.,medido,
+Distancia Mínima,400,6,3,100,,,,,O(n·d),O(c·d),O(c·d),Los centroides resumen cada clase; predecir no recorre n.,pendiente,DistanciaMinima.fit aún no está implementado (Rol 2)
+1-NN,400,6,3,100,0.0026834666496142745,0.0007550217858532871,0.002827199990861118,0.0005712489424193791,O(1) más almacenar O(n·d),O(n·d),O(n·d),Memoriza todos los ejemplos y calcula distancias al predecir.,medido,
+K-NN,400,6,3,100,0.002467833342961967,0.00019384233688227357,0.0026254000064606466,0.0006056259916491282,O(1) más almacenar O(n·d),O(n·d),O(n·d),Igual que 1-NN en costo asintótico; cambia k y la votación.,medido,
+Naïve Bayes,400,6,3,100,0.004954466635050873,0.0008299723074469063,0.001239633304066956,8.465496952282817e-05,O(n·d),O(c·d),O(c·d),Resume medias y varianzas por clase y rasgo.,medido,
+SVM,400,6,3,100,0.014220533310435712,0.0020851965594740566,0.005028366654490431,0.0007915197507756205,"O(n²·d) a O(n³), según solver y datos",O(s·d),O(s·d),s es el número de vectores de soporte.,medido,
+MLP,400,6,3,100,1.7136847666309525,0.0442917582917887,0.0010183333264042933,9.469507830771251e-05,O(épocas·n·W),O(W),O(W),W es el total de pesos; el costo depende de las épocas y la arquitectura.,medido,
+Distancia Mínima,800,6,3,100,,,,,O(n·d),O(c·d),O(c·d),Los centroides resumen cada clase; predecir no recorre n.,pendiente,DistanciaMinima.fit aún no está implementado (Rol 2)
+1-NN,800,6,3,100,0.002598533329243461,0.0006658464095738012,0.0028020999937628708,0.0005617476638879404,O(1) más almacenar O(n·d),O(n·d),O(n·d),Memoriza todos los ejemplos y calcula distancias al predecir.,medido,
+K-NN,800,6,3,100,0.0029740333557128906,0.0003580925909111017,0.003119133374032875,6.673090534557313e-05,O(1) más almacenar O(n·d),O(n·d),O(n·d),Igual que 1-NN en costo asintótico; cambia k y la votación.,medido,
+Naïve Bayes,800,6,3,100,0.0042209000093862414,0.0004515316803802339,0.001122833346016705,0.00016177909531139481,O(n·d),O(c·d),O(c·d),Resume medias y varianzas por clase y rasgo.,medido,
+SVM,800,6,3,100,0.032784166668231286,0.003319434959936015,0.008106433359595636,0.00036526558880268286,"O(n²·d) a O(n³), según solver y datos",O(s·d),O(s·d),s es el número de vectores de soporte.,medido,
+MLP,800,6,3,100,3.490030899993144,0.15246068205798022,0.0009299666853621602,3.083442850608822e-05,O(épocas·n·W),O(W),O(W),W es el total de pesos; el costo depende de las épocas y la arquitectura.,medido,
+Distancia Mínima,1600,6,3,100,,,,,O(n·d),O(c·d),O(c·d),Los centroides resumen cada clase; predecir no recorre n.,pendiente,DistanciaMinima.fit aún no está implementado (Rol 2)
+1-NN,1600,6,3,100,0.002750533322493235,6.52452917129637e-05,0.007941866720405718,0.0015377869705377081,O(1) más almacenar O(n·d),O(n·d),O(n·d),Memoriza todos los ejemplos y calcula distancias al predecir.,medido,
+K-NN,1600,6,3,100,0.0029007666744291782,0.00034181125858981945,0.009044066614781817,0.0010454474670102184,O(1) más almacenar O(n·d),O(n·d),O(n·d),Igual que 1-NN en costo asintótico; cambia k y la votación.,medido,
+Naïve Bayes,1600,6,3,100,0.006100400001741946,0.0008378118792586699,0.0012732333270832896,0.00011064040074626022,O(n·d),O(c·d),O(c·d),Resume medias y varianzas por clase y rasgo.,medido,
+SVM,1600,6,3,100,0.11205396665415417,0.016826115427027347,0.013288333313539624,0.0018786181877007292,"O(n²·d) a O(n³), según solver y datos",O(s·d),O(s·d),s es el número de vectores de soporte.,medido,
+MLP,1600,6,3,100,5.536354666653399,0.20777045035521044,0.000883166678249836,1.4723532133696398e-05,O(épocas·n·W),O(W),O(W),W es el total de pesos; el costo depende de las épocas y la arquitectura.,medido,
+Distancia Mínima,3200,6,3,100,,,,,O(n·d),O(c·d),O(c·d),Los centroides resumen cada clase; predecir no recorre n.,pendiente,DistanciaMinima.fit aún no está implementado (Rol 2)
+1-NN,3200,6,3,100,0.0028642333345487714,0.00042357097017329794,0.012287266668863595,0.0005000458792741979,O(1) más almacenar O(n·d),O(n·d),O(n·d),Memoriza todos los ejemplos y calcula distancias al predecir.,medido,
+K-NN,3200,6,3,100,0.0031003333472957215,0.0003545412554234232,0.015470333397388458,0.0009592516328531131,O(1) más almacenar O(n·d),O(n·d),O(n·d),Igual que 1-NN en costo asintótico; cambia k y la votación.,medido,
+Naïve Bayes,3200,6,3,100,0.007357166691993673,0.0008597515005536653,0.0017520000304405887,0.00035870196384324784,O(n·d),O(c·d),O(c·d),Resume medias y varianzas por clase y rasgo.,medido,
+SVM,3200,6,3,100,0.27314139999604475,0.04017972742230879,0.01793296666194995,0.0032174583098253076,"O(n²·d) a O(n³), según solver y datos",O(s·d),O(s·d),s es el número de vectores de soporte.,medido,
+MLP,3200,6,3,100,6.5607541333884,0.12006667643653661,0.0010993666558836896,9.780555162776422e-05,O(épocas·n·W),O(W),O(W),W es el total de pesos; el costo depende de las épocas y la arquitectura.,medido,
